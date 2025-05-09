@@ -45,6 +45,12 @@ def isMatrix(A):
     else:
         return False
 
+def isVector(u):
+    # u가 Vector 인지 판별 | Args: (list) 판별할 대상 u | Return : True or False
+    if isinstance(u, list) & all(not isinstance(x, list) for x in u):
+        return True
+    
+    return False
 
 def standardMatrixProduct(A, B):
     # 두 Matrix의 곱 반환 | Args: (list) Matrix A, (list) Matrix B | Return : Matrix AB
@@ -112,10 +118,30 @@ def hadamardProduct(A, B):
 
     return C
 
+
+def outerProduct(u, v):
+    # 두 Matrix의 곱 반환 | Args: (list) Matrix A, (list) Matrix B | Return : Matrix AB
+    if not(isVector(u) & isVector(v)): 
+        return 'u or v is not vector'
+
+    u_len = len(u)
+    v_len = len(v)
+
+    C = [[0 for _ in range(v_len)] for _ in range (u_len)]
+
+    for row_idx in range(u_len):
+        for col_idx in range(v_len):
+            C[row_idx][col_idx] = u[row_idx] * v[col_idx]
+
+    return C
+
+
 def main(): 
-    A = [[1, 2, 3], [4, 5, 6]]
+    # A = [[1, 2, 3], [4, 5, 6]]
     # B = [[1, 2], [3, 4], [5, 6]]
-    B = [[1, 2, 3], [4, 5, 6]]
+    # B = [[1, 2, 3], [4, 5, 6]]
+    u = [2, 5]
+    v = [3, 4, 1]
 
     # A = getMatrix('Matrix A')
     # B = getMatrix('Matrix B')
@@ -126,7 +152,9 @@ def main():
 
     # print('AB = ', standardMatrixProduct(A, B))
     # print('Ak = ', scalarMultiplication(A, 3))
-    print('AB = ', hadamardProduct(A, B))
+    # print('AB = ', hadamardProduct(A, B))
+    print('uvT = ', outerProduct(u, v))
+
 
 
 main()
