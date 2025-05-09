@@ -49,7 +49,7 @@ return A
 ---
 <br> 
 
-### 2. getMatrix(title)
+### 2. isMatrix(A)
 > 코드 간소화
 > - `all(isinstance(row, list) for row in A)` : row가 list인지 확인
 > - `all(len(row) == col_length for row in A)` : 각 row의 길이 확인  
@@ -86,7 +86,7 @@ return all(len(row) == col_length for row in A) # 각 row의 길이 비교
 ---
 <br>
 
-### 3. getMatrix(title)
+### 3. standardMatrixProduct(A, B)
 > 코드 간소화
 > - `rowA, colA = len(A), len(A[0])` : 다중 할당
 > - `[[0 for _ in range(colB)] for _ in range(rowA)]` : matrix 초기화
@@ -144,3 +144,118 @@ for i in range(rowA):
 return C
 ```
 ---
+
+### 4. scalarMultiplication(A, k)
+> 내용용
+
+
+내 코드 
+```python
+if not(isMatrix(A)): 
+        return 'A is not matrix'
+    
+    row_len = len(A)
+    col_len = len(A[0])
+
+    for row_idx in range(row_len):
+        for col_idx in range(col_len):
+            A[row_idx][col_idx] *= k
+
+    return A
+```
+GPT 코드 
+
+```python
+return [[k * A[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+```
+
+---
+
+### 5. hadamardProduct(A, B)
+> 오류 방지용 코드들이 추가 됨.
+
+
+내 코드 
+```python
+while user_input != 'end':
+    user_input = input(f'row[{count_row}] : ')
+    if user_input == 'end':
+        return A
+
+    try:
+        A.append(list(map(int, user_input.split(', '))))
+        count_row += 1
+    except:
+        print("Error: didn't follow the format")
+        return None
+
+return A
+```
+GPT 코드 
+
+```python
+return [[A[i][j] * B[i][j] for j in range(n)] for i in range(m)]
+```
+
+---
+
+### 6. outerProduct(u, v)
+> 오류 방지용 코드들이 추가 됨.
+
+
+내 코드 
+```python
+while user_input != 'end':
+    user_input = input(f'row[{count_row}] : ')
+    if user_input == 'end':
+        return A
+
+    try:
+        A.append(list(map(int, user_input.split(', '))))
+        count_row += 1
+    except:
+        print("Error: didn't follow the format")
+        return None
+
+return A
+```
+GPT 코드 
+
+```python
+return [[ui * vj for vj in v] for ui in u]
+```
+
+### 7. kroneckerProduct(A, B)
+> 오류 방지용 코드들이 추가 됨.
+
+
+내 코드 
+```python
+while user_input != 'end':
+    user_input = input(f'row[{count_row}] : ')
+    if user_input == 'end':
+        return A
+
+    try:
+        A.append(list(map(int, user_input.split(', '))))
+        count_row += 1
+    except:
+        print("Error: didn't follow the format")
+        return None
+
+return A
+```
+GPT 코드 
+
+```python
+m, n = len(A), len(A[0])
+    p, q = len(B), len(B[0])
+    C = [[0] * (n * q) for _ in range(m * p)]
+    for i in range(m):
+        for j in range(n):
+            a = A[i][j]
+            for ii in range(p):
+                for jj in range(q):
+                    C[i*p + ii][j*q + jj] = a * B[ii][jj]
+    return C
+```
