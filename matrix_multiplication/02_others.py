@@ -37,7 +37,7 @@ def isMatrix(A):
 
     return all(len(row) == col_length for row in A)
 
-def multiplyMatrix(A, B):
+def standardMatrixProduct(A, B):
     if not (isMatrix(A) and isMatrix(B)): 
         return 'Error: A or B is not a valid matrix.'
     
@@ -54,6 +54,55 @@ def multiplyMatrix(A, B):
             for k in range(colA):
                 C[i][j] += A[i][k] * B[k][j]
 
+    return C
+
+def scalarMultiplication(A, k):
+    """
+    Multiply every element of matrix A by scalar k.
+    A: list of lists (m x n)
+    k: number (int or float)
+    Returns: new matrix (m x n)
+    """
+    return [[k * A[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+
+def hadamardProduct(A, B):
+    """
+    Element-wise (Hadamard) product of A and B.
+    A, B: same-shaped matrices (lists of lists)
+    Returns: new matrix of the same shape
+    """
+    m, n = len(A), len(A[0])
+    # Optional: you could check that len(B)==m and len(B[0])==n
+    return [[A[i][j] * B[i][j] for j in range(n)] for i in range(m)]
+
+
+def outerProduct(u, v):
+    """
+    Outer product of vector u and v.
+    u: length-m list
+    v: length-n list
+    Returns: m x n matrix with C[i][j] = u[i] * v[j]
+    """
+    return [[ui * vj for vj in v] for ui in u]
+
+
+def kroneckerProduct(A, B):
+    """
+    Kronecker product of matrices A and B.
+    A: m x n matrix
+    B: p x q matrix
+    Returns: (m*p) x (n*q) matrix
+    """
+    m, n = len(A), len(A[0])
+    p, q = len(B), len(B[0])
+    C = [[0] * (n * q) for _ in range(m * p)]
+    for i in range(m):
+        for j in range(n):
+            a = A[i][j]
+            for ii in range(p):
+                for jj in range(q):
+                    C[i*p + ii][j*q + jj] = a * B[ii][jj]
     return C
 
 def main():
