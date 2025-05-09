@@ -1,10 +1,10 @@
 '''
 Matrix Multiplication
-    Matrix A와 B의 곱인 AB 반환하기.
-
-    행렬 곱셈 가능 조건
-    A : m x n
-    B : n x k
+    - standardMatrixProduct(A, B)
+    - scalarMultiplication(A, k)
+    - hadamardProduct(A, B)
+    - outerProduct(u, v)
+    - kroneckerProduct(A, B)
 
 '''
 
@@ -135,13 +135,32 @@ def outerProduct(u, v):
 
     return C
 
+def kroneckerProduct(A, B):
+    # 두 Matrix의 크로네커 곱 반환 | Args: (list) Matrix A, (list) Matrix B | Return : Matrix AB
+    if not(isMatrix(A) & isMatrix(B)): 
+        return 'A or B is not matrix'
+    
+    rowA_len = len(A)
+    colA_len = len(A[0])  
+    rowB_len = len(B)
+    colB_len = len(B[0])
+
+    C = [[0 for _ in range(colA_len*colB_len)] for _ in range(rowA_len*rowB_len)]
+    
+    for row_idx in range(rowA_len*rowB_len):
+        for col_idx in range(colA_len*colB_len):
+            C[row_idx][col_idx] = A[row_idx//rowA_len][col_idx//colA_len] * B[row_idx%rowB_len][col_idx%colB_len]
+
+    return C
 
 def main(): 
     # A = [[1, 2, 3], [4, 5, 6]]
     # B = [[1, 2], [3, 4], [5, 6]]
     # B = [[1, 2, 3], [4, 5, 6]]
-    u = [2, 5]
-    v = [3, 4, 1]
+    # u = [2, 5]
+    # v = [3, 4, 1]
+    A = [[1, 2], [3, 4]]
+    B = [[0, 5], [6, 7]]
 
     # A = getMatrix('Matrix A')
     # B = getMatrix('Matrix B')
@@ -153,8 +172,7 @@ def main():
     # print('AB = ', standardMatrixProduct(A, B))
     # print('Ak = ', scalarMultiplication(A, 3))
     # print('AB = ', hadamardProduct(A, B))
-    print('uvT = ', outerProduct(u, v))
-
-
+    # print('uvT = ', outerProduct(u, v))
+    print('AB = ', kroneckerProduct(A, B))
 
 main()
