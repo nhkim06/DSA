@@ -146,8 +146,7 @@ return C
 ---
 
 ### 4. scalarMultiplication(A, k)
-> 내용용
-
+> A에 결괏값을 저장하지 않고 바로 return 
 
 내 코드 
 ```python
@@ -172,52 +171,52 @@ return [[k * A[i][j] for j in range(len(A[0]))] for i in range(len(A))]
 ---
 
 ### 5. hadamardProduct(A, B)
-> 오류 방지용 코드들이 추가 됨.
+> 결괏값을 변수에 저장하지 않고 바로 return 
 
 
 내 코드 
 ```python
-while user_input != 'end':
-    user_input = input(f'row[{count_row}] : ')
-    if user_input == 'end':
-        return A
+rowA_len = len(A)
+colA_len = len(A[0])  
+rowB_len = len(B)
+colB_len = len(B[0])
 
-    try:
-        A.append(list(map(int, user_input.split(', '))))
-        count_row += 1
-    except:
-        print("Error: didn't follow the format")
-        return None
+if rowA_len != rowB_len | colA_len != colB_len: 
+    return 'A and B must have the same dimensions'
 
-return A
+C = [[0 for _ in range(colA_len)] for _ in range (rowA_len)]
+
+for row_idx in range(rowA_len):
+    for col_idx in range(colA_len):
+        C[row_idx][col_idx] = A[row_idx][col_idx] * B[row_idx][col_idx]
+
+return C
 ```
 GPT 코드 
 
 ```python
+m, n = len(A), len(A[0])
 return [[A[i][j] * B[i][j] for j in range(n)] for i in range(m)]
 ```
 
 ---
 
 ### 6. outerProduct(u, v)
-> 오류 방지용 코드들이 추가 됨.
+> 결괏값을 변수에 저장하지 않고 바로 return 
 
 
 내 코드 
 ```python
-while user_input != 'end':
-    user_input = input(f'row[{count_row}] : ')
-    if user_input == 'end':
-        return A
+u_len = len(u)
+v_len = len(v)
 
-    try:
-        A.append(list(map(int, user_input.split(', '))))
-        count_row += 1
-    except:
-        print("Error: didn't follow the format")
-        return None
+C = [[0 for _ in range(v_len)] for _ in range (u_len)]
 
-return A
+for row_idx in range(u_len):
+    for col_idx in range(v_len):
+        C[row_idx][col_idx] = u[row_idx] * v[col_idx]
+
+return C
 ```
 GPT 코드 
 
@@ -226,36 +225,38 @@ return [[ui * vj for vj in v] for ui in u]
 ```
 
 ### 7. kroneckerProduct(A, B)
-> 오류 방지용 코드들이 추가 됨.
+> 수정 필요 없음
 
 
 내 코드 
 ```python
-while user_input != 'end':
-    user_input = input(f'row[{count_row}] : ')
-    if user_input == 'end':
-        return A
+if not(isMatrix(A) & isMatrix(B)): 
+    return 'A or B is not matrix'
 
-    try:
-        A.append(list(map(int, user_input.split(', '))))
-        count_row += 1
-    except:
-        print("Error: didn't follow the format")
-        return None
+rowA_len = len(A)
+colA_len = len(A[0])  
+rowB_len = len(B)
+colB_len = len(B[0])
 
-return A
+C = [[0 for _ in range(colA_len*colB_len)] for _ in range(rowA_len*rowB_len)]
+
+for row_idx in range(rowA_len*rowB_len):
+    for col_idx in range(colA_len*colB_len):
+        C[row_idx][col_idx] = A[row_idx//rowA_len][col_idx//colA_len] * B[row_idx%rowB_len][col_idx%colB_len]
+
+return C
 ```
 GPT 코드 
 
 ```python
 m, n = len(A), len(A[0])
-    p, q = len(B), len(B[0])
-    C = [[0] * (n * q) for _ in range(m * p)]
-    for i in range(m):
-        for j in range(n):
-            a = A[i][j]
-            for ii in range(p):
-                for jj in range(q):
-                    C[i*p + ii][j*q + jj] = a * B[ii][jj]
-    return C
+p, q = len(B), len(B[0])
+C = [[0] * (n * q) for _ in range(m * p)]
+for i in range(m):
+    for j in range(n):
+        a = A[i][j]
+        for ii in range(p):
+            for jj in range(q):
+                C[i*p + ii][j*q + jj] = a * B[ii][jj]
+return C
 ```
