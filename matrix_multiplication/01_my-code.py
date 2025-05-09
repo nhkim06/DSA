@@ -46,7 +46,7 @@ def isMatrix(A):
         return False
 
 
-def multiplyMatrix(A, B):
+def standardMatrixProduct(A, B):
     # 두 Matrix의 곱 반환 | Args: (list) Matrix A, (list) Matrix B | Return : Matrix AB
     if not(isMatrix(A) & isMatrix(B)): 
         return 'A or B is not matrix'
@@ -77,19 +77,56 @@ def multiplyMatrix(A, B):
     else:
         return 'multiplication failed'
 
+def scalarMultiplication(A, k):
+    # Matrix의 스칼라 곱 반환 | Args: (list) Matrix A, (float) k | Return : Matrix Ak
+    if not(isMatrix(A)): 
+        return 'A is not matrix'
+    
+    row_len = len(A)
+    col_len = len(A[0])
 
+    for row_idx in range(row_len):
+        for col_idx in range(col_len):
+            A[row_idx][col_idx] *= k
+
+    return A
+
+def hadamardProduct(A, B):
+    # 두 Matrix의 곱 반환 | Args: (list) Matrix A, (list) Matrix B | Return : Matrix AB
+    if not(isMatrix(A) & isMatrix(B)): 
+        return 'A or B is not matrix'
+    
+    rowA_len = len(A)
+    colA_len = len(A[0])  
+    rowB_len = len(B)
+    colB_len = len(B[0])
+    
+    if rowA_len != rowB_len | colA_len != colB_len: 
+        return 'A and B must have the same dimensions'
+
+    C = [[0 for _ in range(colA_len)] for _ in range (rowA_len)]
+
+    for row_idx in range(rowA_len):
+        for col_idx in range(colA_len):
+            C[row_idx][col_idx] = A[row_idx][col_idx] * B[row_idx][col_idx]
+
+    return C
 
 def main(): 
-    # A = [[1, 2, 3], [4, 5, 6]]
+    A = [[1, 2, 3], [4, 5, 6]]
     # B = [[1, 2], [3, 4], [5, 6]]
+    B = [[1, 2, 3], [4, 5, 6]]
 
-    A = getMatrix('Matrix A')
-    B = getMatrix('Matrix B')
+    # A = getMatrix('Matrix A')
+    # B = getMatrix('Matrix B')
 
-    print('===')
-    print('A = ', A)
-    print('B = ', B)
+    # print('===')
+    # print('A = ', A)
+    # print('B = ', B)
 
-    print('AB = ', multiplyMatrix(A, B))
+    # print('AB = ', standardMatrixProduct(A, B))
+    # print('Ak = ', scalarMultiplication(A, 3))
+    print('AB = ', hadamardProduct(A, B))
+
 
 main()
