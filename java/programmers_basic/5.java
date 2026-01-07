@@ -1,29 +1,31 @@
 class Solution {
     public int solution(String A, String B) {
-//         if (A.equals(B)) return 0;
-//         int tarIdx = A.lastIndexOf(B.charAt(0));
+        //방법 1: 한 글자 씩 밀어서 일일이 비교
+        // if (A.equals(B)) return 0;
+        // int tarIdx = A.lastIndexOf(B.charAt(0));
         
-//         while( tarIdx != -1 ){
-//             int shift = A.length() - tarIdx;
-//             String shifted = A.substring(tarIdx) + A.substring(0, tarIdx);
+        // while( tarIdx != -1 ){
+        //     int shift = A.length() - tarIdx;
+        //     String shifted = A.substring(tarIdx) + A.substring(0, tarIdx);
             
-//             if (shifted.equals(B)) return shift;
+        //     if (shifted.equals(B)) return shift;
             
-//             tarIdx = A.lastIndexOf(B.charAt(0), tarIdx-1);
-//         }
+        //     tarIdx = A.lastIndexOf(B.charAt(0), tarIdx-1);
+        // }
         
-//         return -1;
+        // return -1;
         
+        //방법 2 : B의 첫 글자의 인덱스를 A에서 찾고, 해당 인덱스에서 shift해 비교
+        // if (A.equals(B)) return 0;
         
-//         if (A.equals(B)) return 0;
-        
-//         for (int i=1; i<A.length(); i++){
-//             int lastIdx = A.length();
-//             String shifted = A.substring(lastIdx-i) + A.substring( 0, lastIdx-i );
-//             if (shifted.equals(B)) return i;
-//         }
-//         return -1;
-        
+        // for (int i=1; i<A.length(); i++){
+        //     int lastIdx = A.length();
+        //     String shifted = A.substring(lastIdx-i) + A.substring( 0, lastIdx-i );
+        //     if (shifted.equals(B)) return i;
+        // }
+        // return -1;
+
+        //방법 3 : A+A로 A를 늘린 String에서 B 찾기
         if (A.equals(B)) return 0;
         String AA = A+A;
         int idx = AA.lastIndexOf(B);
