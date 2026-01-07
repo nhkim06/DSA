@@ -23,8 +23,15 @@ class Solution {
                 }
                 if (!matched) break;
             } 
+            
             if (idx == bab.length()) answer++;
+
         }
         return answer;
     }
+    
 }
+
+// 모든 경우의 조합을 비교 : 비효율적
+// 각 단어와 일치하는지 조회, 일치한다면 나머지 단어들 이어서 조회
+// O(mn)이 최선인가? 
