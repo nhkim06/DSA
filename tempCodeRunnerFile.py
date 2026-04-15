@@ -1,1 +1,0 @@
-Character('name', 10)
