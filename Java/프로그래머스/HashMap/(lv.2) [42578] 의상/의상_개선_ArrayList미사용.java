@@ -1,29 +1,21 @@
 import java.util.HashMap;
-import java.util.ArrayList;
 
 class Solution {
     public int solution(String[][] clothes) {
-        HashMap<String, ArrayList<String>> clothesMap = new HashMap<>();
+        HashMap<String, Integer> clothesMap = new HashMap<>();
         
         for (String[] c : clothes){
-            clothesMap.putIfAbsent(c[1], new ArrayList<String>());
-            clothesMap.get(c[1]).add(c[0]);                        
-            
+            clothesMap.put(c[1], clothesMap.getOrDefault(c[1], 0) + 1);
         }
-        // {eyewear=[blue_sunglasses], headgear=[yellow_hat, green_turban]}
-        
-        // { face=[1, 2, 3] }
-        // 2^0*V
         
         int answer = 1;
-        for (ArrayList<String> sameType : clothesMap.values()){
-            answer *= sameType.size() + 1;
+        for (int count : clothesMap.values()){
+            answer *= count + 1;
         }
         
         return answer-1;
     }
 }
-
 
 /*
 문제 해석
