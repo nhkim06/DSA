@@ -33,7 +33,7 @@ class Solution {
 /*
 문제 해석
 - in  : priorities(중요도가 담긴 배열), location(선택한 프로세스의 위치)
-- out : location 프로세스가 몇번째로 실해되는지
+- out : location 프로세스가 몇번째로 실행되는지
 
 문제 해결
 1. 프로세스를 어떻게 구분할 것인가?
