@@ -1,31 +1,27 @@
 import java.util.*;
+
 class Solution {
     public String solution(int[] numbers) {
-        String[] nums = new String[numbers.length];
+        String[] strNums = new String[numbers.length];
         for (int i=0; i<numbers.length; i++){
-            nums[i] = String.valueOf(numbers[i]);
+            strNums[i] = String.valueOf(numbers[i]);
         }
         
-        Arrays.sort(nums, (a, b)-> (b+a).compareTo(a+b));
+        Arrays.sort(strNums, (a, b)-> (b+a).compareTo(a+b));
+        if(strNums[0].equals("0")) return "0";
         
-        if (nums[0].equals("0")) return "0";
-        
-        StringBuilder ans = new StringBuilder();
-        for(int i=0; i<nums.length; i++){
-            ans.append(nums[i]);
+        StringBuilder answer = new StringBuilder();
+        for (String sn : strNums) {
+            answer.append(sn);
         }
         
-        return ans.toString();
+        
+        return answer.toString();
     }
 }
 
 /*
-문제 해석
-- 주어진 숫자들을 조합해 만들 수 있는 가장 큰 숫자 만들기
-
-문제 해결
-- numbers의 값들을 String로 변환해 조합들을 비교 정렬
-    1. String으로 바꾸기 
-    2. 정렬하기
+문제 풀이 3번째 : 
+- sort의 comparator 사용하는 문제
 
 */
