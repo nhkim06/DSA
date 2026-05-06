@@ -1,14 +1,26 @@
 class Solution {
-    public int solution(String word) {
-        int[] weight = new int[]{ 781, 156, 31, 6, 1 };
-        String vowels = "AEIOU";
-        int count = 0;
+    int count = 0;
+    int answer = 0;
+    String vowels = "AEIOU";
 
-        for(int i=0; i<word.length(); i++){
-            count += vowels.indexOf(word.charAt(i)) * weight[i] + 1;
+    public int solution(String word) {
+        dfs("", word);
+        return answer;
+    }
+    
+    public void dfs(String current, String word){
+        if (current.equals(word)) {
+            answer = count;
+            return;
         }
+        if (current.length() == 5) return;
         
-        return count;
+        for (int i=0; i<vowels.length(); i++){
+            if (answer > 0) return;
+            count ++;
+            dfs(current + vowels.charAt(i), word);
+            
+        }
     }
 }
 
