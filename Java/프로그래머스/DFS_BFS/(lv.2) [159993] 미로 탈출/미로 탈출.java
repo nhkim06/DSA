@@ -41,6 +41,7 @@ class Solution {
         boolean[][] visited = new boolean[n][m];
         
         queue.add(new int[]{start[0], start[1], 0});
+        visited[start[0]][start[1]] = true;
         
         while (!queue.isEmpty()) {
             int[] cur = queue.poll();
@@ -82,6 +83,6 @@ class Solution {
 1. S, E, L 좌표 찾기
 2. X만 아니면 다음 칸 탐색하며 S->L 최단 거리 구하기
 3. L->E 최단 거리 구하기
-
+4. 2, 3둘의 합 구하기
 
 */
