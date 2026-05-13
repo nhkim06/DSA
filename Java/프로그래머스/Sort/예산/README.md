@@ -1,3 +1,5 @@
+# 예산
+
 [문제 링크](https://campus.programmers.co.kr/tryouts/211582/challenges?language=java)
 
 ```
